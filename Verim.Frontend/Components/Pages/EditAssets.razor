@@ -1,0 +1,134 @@
+﻿@page "/editAssets"
+@page "/editAssets/{id:int}"
+@using Verim.Frontend.Clients
+@using Verim.Frontend.Models
+@inject AssetsClient assetsClient
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Verim</PageTitle> 
+<h3 class="mt-2">@title</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        @if (comboOptions == null)
+        {
+         <p>Loading types...</p>
+        }
+        else
+        {
+        <EditForm Model="@asset" FormName="addAsset" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary/>
+            <div class="mb-2">
+                <label for="type" class="form-label">Type:</label>
+                <InputSelect id="type" @bind-Value="asset.AssetType" class="form-select" >
+                <option value="" style="font-weight: 200;">Select a type</option>
+                @foreach (var type in comboOptions.Types)
+                {
+                    <option value=@type>@type</option>
+                }
+                </InputSelect>
+                 <ValidationMessage For="() => asset.AssetType"/>
+            </div>
+
+            <div class="mb-2">
+                <label for="province" class="form-label">Province:</label>
+                <InputSelect id="province" @bind-Value="asset.ProvinceName" class="form-select" >
+                <option value="" style="font-weight: 200;">Select a province</option>
+                @foreach (var province in comboOptions.Provinces)
+                {
+                    <option value=@province>@province</option>
+                }
+                </InputSelect>
+                <ValidationMessage For="() => asset.ProvinceName"/>
+            </div>
+
+            <div class="mb-2">
+                <label for="district" class="form-label">District:</label>
+                <InputSelect id="district" @bind-Value="asset.DistrictName" class="form-select" >
+                <option value="" style="font-weight: 200;">Select a province</option>
+                @foreach (var district in comboOptions.Districts)
+                {
+                    <option value=@district>@district</option>
+                }
+                </InputSelect>
+                <ValidationMessage For="() => asset.DistrictName"/>
+            </div>
+
+            <div class="mb-2">
+                <label for="neighborhood" class="form-label">Neighborhood:</label>
+                <InputSelect id="neighborhood" @bind-Value="asset.NeighborhoodName" class="form-select" >
+                <option value="" style="font-weight: 200;">Select a neighborhood</option>
+                @foreach (var neighborhood in comboOptions.Neighborhoods)
+                {
+                    <option value=@neighborhood>@neighborhood</option>
+                }
+                </InputSelect>
+                <ValidationMessage For="() => asset.NeighborhoodName"/>
+            </div>
+
+            <div class="mb-2">
+                <label for="blocknumber" class="form-label">Block Number:</label>
+                <InputText id="blocknumber" @bind-Value="asset.BlockNumber" class="form-control" />
+                <ValidationMessage For="() => asset.BlockNumber"/>
+            </div>
+
+            <div class="mb-2">
+                <label for="parcelnumber" class="form-label">Parcel Number:</label>
+                <InputText id="parcelnumber" @bind-Value="asset.ParcelNumber" class="form-control" />
+                <ValidationMessage For="() => asset.ParcelNumber"/>
+            </div>
+
+            <div class="mb-2">
+                <label for="plantedproduct" class="form-label">Planted Product:</label>
+                <InputSelect id="plantedproduct" @bind-Value="asset.PlantedProduct" class="form-select" >
+                <option value="" style="font-weight: 200;">Select a product to plant</option>
+                @foreach (var plant in comboOptions.Planteds)
+                {
+                    <option value=@plant>@plant</option>
+                }
+            </InputSelect>
+            </div>
+
+            <!-- Add cancel button -->
+            <button type="submit" class="btn btn-success">Add Asset</button>
+        </EditForm> 
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int? id {get; set;}
+    private Asset asset { get; set; } = new Asset();
+    private ComboData comboOptions {get; set;}
+    private string title = "Add New Asset";
+    protected override async Task OnInitializedAsync()
+    {
+        comboOptions = await assetsClient.GetComboOptions();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (id is not null)
+        {
+            asset = await assetsClient.GetAssetAsync(id.Value);
+            title = "Edit Asset";
+        }
+    }
+
+    private void HandleSubmit()
+    {
+        if (id is null)
+        {   
+            assetsClient.AddNewAssetAsync(asset); 
+        }
+        else
+        {
+            assetsClient.UpdateAssetAsync(asset);
+        }
+        
+        NavigationManager.NavigateTo("/assets", true);
+    }
+}
