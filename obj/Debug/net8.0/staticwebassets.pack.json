@@ -1,0 +1,77 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Verim.Frontend.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Verim.Frontend.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\arsa-photo.jpg",
+      "PackagePath": "staticwebassets\\arsa-photo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\bag-photo.jpg",
+      "PackagePath": "staticwebassets\\bag-photo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\bahce-photo.jpg",
+      "PackagePath": "staticwebassets\\bahce-photo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\default-photo.png",
+      "PackagePath": "staticwebassets\\default-photo.png"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\favicon.jpg",
+      "PackagePath": "staticwebassets\\favicon.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\haber-photo-1.jpg",
+      "PackagePath": "staticwebassets\\haber-photo-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\map.js",
+      "PackagePath": "staticwebassets\\map.js"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\maps.css",
+      "PackagePath": "staticwebassets\\maps.css"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\oldfavicon.png",
+      "PackagePath": "staticwebassets\\oldfavicon.png"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\tarla-photo.jpg",
+      "PackagePath": "staticwebassets\\tarla-photo.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Verim.Frontend.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Verim.Frontend.props",
+      "PackagePath": "build\\Verim.Frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Verim.Frontend.props",
+      "PackagePath": "buildMultiTargeting\\Verim.Frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Verim.Frontend.props",
+      "PackagePath": "buildTransitive\\Verim.Frontend.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

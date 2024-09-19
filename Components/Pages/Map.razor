@@ -1,0 +1,32 @@
+﻿@page "/map"
+
+<!-- Input box for search -->
+<input id="pac-input" class="controls" type="text" placeholder="Search Box" />
+<!-- Container for the map -->
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+  <div id="map" style="height: 50vh; width: 50vw;">gggg</div>
+</div>
+
+
+<!-- Include the Google Maps script with Places library -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" defer></script>
+
+<!-- Include your custom JavaScript -->
+<script src="map.js"></script>
+
+<style>
+    #map {
+        height: 50%;
+    }
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .controls {
+        margin: 10px;
+        padding: 5px;
+        font-size: 15px;
+        width: 300px;
+    }
+</style>
