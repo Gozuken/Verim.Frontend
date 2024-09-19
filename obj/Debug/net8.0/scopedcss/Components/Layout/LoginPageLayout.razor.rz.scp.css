@@ -1,0 +1,59 @@
+body[b-xtmgqqvg8d] {
+    background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+}
+.login-container[b-xtmgqqvg8d] {
+    max-width: 900px;
+    margin: 50px auto;
+    margin-top: 222px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+.left-side[b-xtmgqqvg8d] {
+    background-color: #1d9040;
+    padding: 30px;
+    color: white;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.left-side img[b-xtmgqqvg8d] {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+.right-side[b-xtmgqqvg8d] {
+    padding: 30px;
+    width: 100%;
+}
+.right-side h2[b-xtmgqqvg8d] {
+    color: #1d9040;
+    margin-bottom: 20px;
+}
+.form-control[b-xtmgqqvg8d] {
+    margin-bottom: 15px;
+}
+.btn-custom[b-xtmgqqvg8d] {
+    background-color: #1d9040;
+    color: white;
+    width: 100%;
+    padding: 10px;
+}
+.btn-custom:hover[b-xtmgqqvg8d] {
+    background-color: #155f2b;
+}
+
+.remember-forgot[b-xtmgqqvg8d] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+footer[b-xtmgqqvg8d] {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 10px;
+}

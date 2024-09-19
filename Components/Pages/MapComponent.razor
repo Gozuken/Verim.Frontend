@@ -1,0 +1,28 @@
+﻿
+<div style="display: flex; justify-content: center; align-items: flex-start; height: 100vh;">
+    <div id="map" style="height: 70vh; width: 50vw;"></div>
+</div>
+
+<input id="pac-input" class="controls" type="text" placeholder="Search Box" />
+
+<script src="https://maps.googleapis.com/maps/api/js?key=@ApiKey&libraries=places&callback=initAutocomplete" defer></script>
+<script src="map.js"></script>
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .controls {
+        margin: 10px;
+        padding: 5px;
+        font-size: 15px;
+        width: 300px;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public string ApiKey { get; set; } = "YOUR_API_KEY"; // Replace with your API key
+}

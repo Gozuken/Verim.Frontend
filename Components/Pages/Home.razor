@@ -1,0 +1,58 @@
+﻿@page "/home"
+@using Verim.Frontend.Clients
+@using Verim.Frontend.Models
+@inject AssetsClient assetsClient
+@inject NavigationManager NavigationManager
+<PageTitle>Ana Sayfa</PageTitle>
+
+<center>
+    <h2 >Verim'e hoş geldiniz</h2>
+</center>
+@if (isHarvestTime)
+{
+    <center>
+        <div class="card text-center card border-success mb-3" style="margin-bottom: 20px;">
+            <div class="card-header">
+                Hasat zamanı!
+            </div>
+            <div class="card-body  #">
+                <h5 class="card-title">Hasat zamanı gelmiş arsalarınız var</h5>
+                <p class="card-text">Hasat sonuçları ve gözlemlerinizi kaydetmek için tıklayınız.</p>
+                <a href="#" class="btn btn-success">İlerle</a>
+            </div>
+            <div class="card-footer text-muted">
+                Hasat zamanı : 2 gün önce
+            </div>
+        </div>
+    </center>
+}
+
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card with stretched link</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="assets" class="btn btn-primary stretched-link">Go somewhere</a>
+  </div>
+</div>
+
+
+@code{
+    private List<Asset> assets { get; set; } = new List<Asset>();
+    private bool isHarvestTime {get; set;} = true;
+    private List<Asset> harvestAssets {get; set;} = new List<Asset>();
+    private string title = "Yeni Arsa Ekle";
+    protected override async Task OnInitializedAsync()
+    {
+        assets = await assetsClient.GetAssetsAsync();
+        foreach (Asset asset in assets)
+        {
+            if (asset.PlantDate.HasValue && asset.PlantDate.Value >= DateOnly.FromDateTime(DateTime.Today))
+            {
+                isHarvestTime = true;
+                harvestAssets.Add(asset);
+            }
+        }
+    }
+}
+

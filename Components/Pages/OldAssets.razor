@@ -1,0 +1,74 @@
+﻿@page "/oldassets"
+@using Verim.Frontend.Clients;
+@using Verim.Frontend.Models;
+@inject AssetsClient Client
+
+<PageTitle>Verim</PageTitle>
+
+<div class="mt-2">
+    <a class = "btn btn-success" role="button" href="/editAssets">New Asset</a>
+</div>
+
+
+<table class="table table-striped table-bordered table-hover mt-4" >
+    <thead class table-dark>
+        <th>ID</th>
+        <th>Type</th>
+        <th>District</th>
+        <th>Province</th>
+        <th>Neighborhood</th>
+        <th>Block Number</th>
+        <th>Parcel Number</th>
+        <th>Planted Product</th>
+    </thead>
+
+    <tbody>
+    @if (assets.Any()){
+        @foreach (var asset in assets)
+        {
+            <tr>
+                <td>@asset.AssetId</td>
+                <td>@asset.AssetType</td>
+                <td>@asset.ProvinceName</td>
+                <td>@asset.DistrictName</td>
+                <td>@asset.NeighborhoodName</td>
+                <td>@asset.BlockNumber</td>
+                <td>@asset.ParcelNumber</td>
+                <td>@asset.PlantedProduct</td>
+                <td>
+                    <div class="d-flex">
+                        <a class="btn btn-success me-2" role="button" href="/editAssets/@asset.AssetId">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@GetDeleteModalId(asset)">
+                        <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                    <DeleteAsset Asset="@asset" />
+                </td>
+            </tr>
+        }}
+        else
+        {
+            <tr>
+                <td colspan="8">Arsa Bulunamadı :(</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+
+@code{
+    private List<Asset> assets {get; set;} = new List<Asset>(); 
+    protected override async Task OnInitializedAsync()
+    {
+        assets = await Client.GetAssetsAsync();
+    }
+
+    public static string GetDeleteModalId(Asset asset)
+    {
+        return $"#{DeleteAsset.GetModalId(asset)}";
+    }
+}

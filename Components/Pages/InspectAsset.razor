@@ -1,0 +1,35 @@
+﻿@page "/assets/{id:int}"
+@using Verim.Frontend.Clients
+@using Verim.Frontend.Models
+@inject AssetsClient assetsClient
+
+<h3>InspectAsset</h3>
+
+<!-- Map view of the asset -->
+<iframe
+    width="600"
+    height="450"
+    style="border:0"
+    loading="lazy"
+    allowfullscreen
+    referrerpolicy="no-referrer-when-downgrade"
+    src="@GetMapUrl(@asset)">
+</iframe>
+
+@code {
+    [Parameter]public int id {get; set;}
+    private Asset asset {get; set;} = new Asset();
+
+    protected override async Task OnInitializedAsync()
+    {
+        asset = await assetsClient.GetAssetAsync(id);
+    }
+
+    private string GetMapUrl(Asset asset)
+    {
+        string Address = asset.GetFullAdress();
+        string apiKey = "YOUR_API_KEY";
+        var encodedAddress = Uri.EscapeDataString(Address);
+        return $"https://www.google.com/maps/embed/v1/place?key={apiKey}&q={encodedAddress}";
+    }
+}

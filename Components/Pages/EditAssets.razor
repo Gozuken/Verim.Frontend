@@ -1,0 +1,211 @@
+﻿@page "/editAssets"
+@page "/editAssets/{id:int}"
+@using Verim.Frontend.Clients
+@using Verim.Frontend.Models
+@inject AssetsClient assetsClient
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Verim</PageTitle> 
+<h3 class="mt-2">@title</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        @if (comboOptions == null)
+        {
+         <p>Loading types...</p>
+        }
+        else
+        {
+        <EditForm Model="@asset" FormName="addAsset" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label for="type" class="form-label">Arsa Tipi: <span class="text-danger">*</span></label>
+                            <InputSelect id="type" @bind-Value="asset.AssetType" class="form-select" >
+                                <option value="" style="font-weight: 200;">Arsa Tipi Seçiniz</option>
+                                @foreach (var type in comboOptions.Types)
+                                {
+                                    <option value=@type.Id>@type.Name</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => asset.AssetType"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label for="province" class="form-label" >İl: <span class="text-danger">*</span></label>
+                            <InputSelect id="province"  @bind-Value="asset.ProvinceName" 
+                                                        @bind-Value:after="HandleProvinceChangeAsync" class="form-select" 
+                                                        @onchange="HandleProvinceChangeAsync" >
+                                <option value="" style="font-weight: 200;">İl Seçiniz</option>
+                                @foreach (var province in comboOptions.Provinces)
+                                {
+                                    <option value=@province.Id>@province.Name</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => asset.ProvinceName"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label for="district" class="form-label">İlçe: <span class="text-danger">*</span></label>
+                            <InputSelect id="district" @bind-Value="asset.DistrictName" @bind-Value:after="HandleDistrictChangeAsync" class="form-select" disabled="@districtDisabled">
+                                <option value="" style="font-weight: 200;">İlçe Seçiniz</option>
+                                @if (!districtDisabled)
+                                {
+                                    foreach (var district in comboOptions.Districts)
+                                    {
+                                        <option value=@district.Id>@district.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="" style="font-weight: 200;">districtDisabled true</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => asset.DistrictName"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label for="neighborhood" class="form-label" >Mahalle: <span class="text-danger">*</span></label>
+                            <InputSelect id="neighborhood" @bind-Value="asset.NeighborhoodName" class="form-select" disabled="@neighborhoodDisabled">
+                                @if (!neighborhoodDisabled)
+                                {
+                                    <option value="" style="font-weight: 200;">Mahalle Seçiniz</option>
+                                    foreach (var neighborhood in comboOptions.Neighborhoods)
+                                    {
+                                        <option value=@neighborhood.Id>@neighborhood.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="" style="font-weight: 100;">Mahalle Seçiniz</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => asset.NeighborhoodName"/>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                    <label for="parcelnumber" class="form-label">Parsel Numarası: <span class="text-danger">*</span></label>
+                    <InputText id="parcelnumber" @bind-Value="asset.ParcelNumber" class="form-control" placeholder="Parsel Numarası Giriniz" />
+                    <ValidationMessage For="() => asset.ParcelNumber"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">  
+                    <label for="blocknumber" class="form-label">Ada numarası:</label>
+                    <InputText id="blocknumber" @bind-Value="asset.BlockNumber" class="form-control" placeholder="Arsa Numarası Giriniz"/>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2">
+                <label for="plantedproduct" class="form-label">Ekili ürün:</label>
+                <InputSelect id="plantedproduct" @bind-Value="asset.PlantedProduct" class="form-select" >
+                <option value="" style="font-weight: 200;">Ürün seçiniz</option>
+                @foreach (var plant in comboOptions.Planteds)
+                {
+                    <option value=@plant.Id>@plant.Name</option>
+                }
+            </InputSelect>
+            </div>
+            <div class="mb-2">
+                <!-- Make button appear after there is a planted product!! -->
+                <label for="PlantDate" class="form-label">Ekim Tarihi:</label>
+                <div class="mb-3">
+                    <InputDate id="plantdate" @bind-Value="@asset.PlantDate" min="@MinDate.ToString("yyyy-MM-dd")" class="form-control" />
+                </div>
+            </div>
+            <!-- Add cancel button -->
+            <button type="submit" class="btn btn-success">Kaydet</button>
+        </EditForm>
+
+        }
+
+    </div>
+    <div class="col-md-6">
+        <div class="pull-right">
+            <MapComponent ApiKey="YOUR_API_KEY" />   
+        </div>
+
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter]public int? id {get; set;}
+    private Asset asset { get; set; } = new Asset();
+    private ComboData comboOptions {get; set;}
+    private bool districtDisabled {get; set;} = true;
+    private bool neighborhoodDisabled {get; set;} = true;
+    DateTime MinDate = DateTime.Now.AddYears(-1);
+    private string title = "Yeni Arsa Ekle";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        comboOptions = await assetsClient.GetComboOptions();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (id is not null)
+        {
+            asset = await assetsClient.GetAssetAsync(id.Value);
+            title = "Edit Asset";
+        }
+    }
+
+    private async void HandleSubmit()
+    {
+        if (id is null)
+        {
+            await assetsClient.AddNewAssetAsync(asset, comboOptions);
+        }
+        else
+        {
+            await assetsClient.UpdateAssetAsync(asset, comboOptions);
+        }
+        
+        NavigationManager.NavigateTo("/assets", true);
+    }
+
+    private async void HandleProvinceChangeAsync()
+    {
+        comboOptions.Districts = new List<Option>();     //clear the previous values
+        comboOptions.Neighborhoods = new List<Option>();
+        neighborhoodDisabled = true; //This is here so the previously chosen value doesn't cause problems when changing. Not sure if this is necessary.
+
+        if (int.TryParse(asset.ProvinceName, out int provinceId))
+        {
+            comboOptions.Districts = await assetsClient.GetDistrictOptions(provinceId);
+            districtDisabled = false;
+            StateHasChanged();
+        }
+        else
+        {
+            districtDisabled = true;
+            comboOptions.Districts = new List<Option>(); // Clear the districts
+            StateHasChanged();
+        }
+        
+    }
+
+    private async void HandleDistrictChangeAsync()
+    {
+        comboOptions.Neighborhoods = await assetsClient.GetNeighborhoodOptions(); //comboOptions.Neighborhoods ?? new List<Option>();
+        neighborhoodDisabled = false;
+        StateHasChanged();
+    }
+}

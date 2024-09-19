@@ -1,0 +1,44 @@
+﻿@using Verim.Frontend.Models
+@using Verim.Frontend.Clients;
+@inject AssetsClient Client
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+<div class="modal fade" id="@GetModalId(Asset)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">@title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="@ConfirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public Asset? Asset {get; set;}
+
+    private string title {get; set;}
+
+    protected override void OnParametersSet()
+    {
+        title = $"'{Asset.AssetId}' Numaralı arsayı silmek istiyor musunuz? ";
+    }
+
+    public static string GetModalId(Asset? asset)
+    {
+        ArgumentNullException.ThrowIfNull(asset);
+        return $"deleteModal-{asset.AssetId}";
+    }
+
+    private void ConfirmDelete()
+    {
+        Client.DeleteAssetAsync(Asset.AssetId);
+        NavigationManager.Refresh();
+    }
+}
