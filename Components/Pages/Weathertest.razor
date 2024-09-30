@@ -1,0 +1,90 @@
+@page "/weathertest"
+@using Verim.Frontend.Clients
+@using Verim.Frontend.Models
+@inject NavigationManager NavigationManager
+@inject AssetsClient assetsClient
+@inject HttpClient Http
+@inject WeatherClient weathersClient
+
+<h3>Weather Forecast for Assets</h3>
+
+@if (!assets.Any())
+{
+    <p>No assets found, redirecting...</p>
+}
+else if (weatherDataList == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @foreach (var weatherInfo in weatherDataList)
+    {
+        <div class="card bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header">@weatherInfo.CityName Hava Durumu</div>
+            <div class="card-body">
+                <h5 class="card-title">Anlık Hava Durumu</h5>
+                <p class="card-text">Sıcaklık: @weatherInfo.Temperature°C</p>
+                <p class="card-text">Nem: @weatherInfo.Humidity%</p>
+                <p class="card-text">Aktif durum: @weatherInfo.Description</p>
+            </div>
+        </div>
+    }
+}
+
+@code {
+    private List<Asset> assets { get; set; } = new List<Asset>();
+    private List<WeatherInfo> weatherDataList { get; set; } = new List<WeatherInfo>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        assets = await assetsClient.GetAssetsAsync();
+
+        if (!assets.Any())
+        {
+            NavigationManager.NavigateTo("/", true);
+            return;
+        }
+
+        foreach (var asset in assets)
+        {
+            // Get coordinates using the WeathersClient
+            var (latitude, longitude) = await weathersClient.GetCoordinateAsync(asset);
+            
+            var url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true";
+            
+            try
+            {
+                var weatherData = await Http.GetFromJsonAsync<WeatherData>(url);
+                weatherDataList.Add(new WeatherInfo
+                {
+                    CityName = asset.ProvinceName + " " + asset.DistrictName, // Assuming asset has a Name property for the city or asset name
+                    Temperature = weatherData.Temperature,
+                    Humidity = weatherData.Humidity,
+                    Description = weatherData.Description
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error on getting weather data : {ex}");
+            }
+
+            
+        }
+    }
+
+    public class WeatherData
+    {
+        public double Temperature { get; set; }
+        public int Humidity { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class WeatherInfo
+    {
+        public string CityName { get; set; }
+        public double Temperature { get; set; }
+        public int Humidity { get; set; }
+        public string Description { get; set; }
+    }
+}

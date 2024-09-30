@@ -98,14 +98,14 @@
                 <div class="col-md-6">
                     <div class="mb-2">
                     <label for="parcelnumber" class="form-label">Parsel Numarası: <span class="text-danger">*</span></label>
-                    <InputText id="parcelnumber" @bind-Value="asset.ParcelNumber" class="form-control" placeholder="Parsel Numarası Giriniz" />
+                        <InputText id="parcelnumber" @bind-Value="asset.ParcelNumber" class="form-control" placeholder="Parsel Numarası Giriniz" />
                     <ValidationMessage For="() => asset.ParcelNumber"/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-2">  
                     <label for="blocknumber" class="form-label">Ada numarası:</label>
-                    <InputText id="blocknumber" @bind-Value="asset.BlockNumber" class="form-control" placeholder="Arsa Numarası Giriniz"/>
+                        <InputText id="blocknumber" @bind-Value="asset.BlockNumber" class="form-control" placeholder="Arsa Numarası Giriniz"/>
                     </div>
                 </div>
             </div>
@@ -135,9 +135,8 @@
     </div>
     <div class="col-md-6">
         <div class="pull-right">
-            <MapComponent ApiKey="YOUR_API_KEY" />   
+            <MapComponent ApiKey="AIzaSyApekf_lfBpdxJsc_k3yBQDlvgc3_Jw9Ws" />   
         </div>
-
     </div>
 </div>
 
@@ -162,7 +161,14 @@
     {
         if (id is not null)
         {
+            try
+            {
             asset = await assetsClient.GetAssetAsync(id.Value);
+            }
+            catch(HttpRequestException ex)
+            {
+                NavigationManager.NavigateTo("/", true);
+            }
             title = "Edit Asset";
         }
     }

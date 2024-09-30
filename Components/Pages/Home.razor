@@ -1,56 +1,189 @@
 ﻿@page "/home"
+@using Verim.Frontend.Components.Layout;
 @using Verim.Frontend.Clients
 @using Verim.Frontend.Models
 @inject AssetsClient assetsClient
 @inject NavigationManager NavigationManager
+@layout HomeLayout
 <PageTitle>Ana Sayfa</PageTitle>
 
-<center>
-    <h2 >Verim'e hoş geldiniz</h2>
-</center>
+<div class="">
+<div id="carousel" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="koklu_gecmis.jpg" class="d-block w-100" alt="test3">
+      <a href="/haber1" class="stretched-link"></a>
+    </div>
+    <div class="carousel-item">
+      <img src="slide2.jpg" class="d-block w-100" alt="test2">
+      <a href="/haber2" class="stretched-link"></a>
+    </div>
+    <div class="carousel-item">
+      <img src="slide3.jpg" class="d-block w-100" alt="test">
+      <a href="/haber13" class="stretched-link"></a>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Faizsiz kredi kampanyası</h5>
+        <p>Bu büyük fırsattan yararlanmak için tıklayınız.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<br>
+
+
+<center><h2>Haberler</h2></center>
+
+<hr class="hr" />
+
+
+
 @if (isHarvestTime)
 {
-    <center>
-        <div class="card text-center card border-success mb-3" style="margin-bottom: 20px;">
-            <div class="card-header">
-                Hasat zamanı!
-            </div>
-            <div class="card-body  #">
-                <h5 class="card-title">Hasat zamanı gelmiş arsalarınız var</h5>
-                <p class="card-text">Hasat sonuçları ve gözlemlerinizi kaydetmek için tıklayınız.</p>
-                <a href="#" class="btn btn-success">İlerle</a>
-            </div>
-            <div class="card-footer text-muted">
-                Hasat zamanı : 2 gün önce
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12"> <!-- Adjust the column size as needed -->
+            <div class="card text-center card border-success mb-3 bg-success" style="margin-bottom: 20px;">
+                <div class="card-header">
+                    Hasat zamanı!
+                </div>
+                <div class="card-body bg-white">
+                    <h5 class="card-title">Hasat zamanı gelmiş arsalarınız var / @harvestAssetsId</h5>
+                    <p class="card-text">Hasat sonuçları ve gözlemlerinizi kaydetmek için tıklayınız.</p>
+                    <a href="/survey/@harvestAssetsId" class="btn btn-success">İlerle</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Hasat zamanı : 2 gün önce
+                </div>
             </div>
         </div>
-    </center>
+    </div>
+  </div>
+
 }
 
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card with stretched link</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="assets" class="btn btn-primary stretched-link">Go somewhere</a>
+<div class="container">
+<div class="row">
+  <div class="col-md-4">
+    <div class="card bg-dark text-white">
+        <img src="arsa-photo.jpg" class="card-img" alt="arsa foto" >
+        <a href="/assets" class="stretched-link"></a>
+        <div class="card-img-overlay">
+            <h5 class="card-title">Arsa</h5>
+            <p class="card-text">Bu bir arsa... Bağlara da göz attınız mı?</p>
+        </div>
+    </div>
   </div>
+  <div class="col-md-4">
+    <div class="card bg-dark text-white">
+        <img src="bag-photo.jpg" class="card-img" alt="bag foto">
+        <a href="/assets" class="stretched-link"></a>
+        <div class="card-img-overlay">
+            <h5 class="card-title">Bağ</h5>
+            <p class="card-text">Bu bir bağ... Bağlar güzeldir</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card bg-dark text-white">
+        <img src="bahce-photo.jpg" class="card-img" alt="bahce foto">
+        <a href="/assets" class="stretched-link"></a>
+        <div class="card-img-overlay">
+            <h5 class="card-title">Bahçe</h5>
+            <p class="card-text">Bu bir bahçe...</p>
+        </div>
+    </div>
+  </div>
+</div>
 </div>
 
 
+
+<br><br><br>
+
+<div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-success">
+ 
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2024 Tüm Hakları Ahmet Ercan Saz'a aittir.
+    </div>
+    <!-- Copyright -->
+
+    <!-- Right -->
+    <div>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#!" class="text-white">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+
+</div>
 @code{
+    private int CurrentSlide = 1;
     private List<Asset> assets { get; set; } = new List<Asset>();
-    private bool isHarvestTime {get; set;} = true;
-    private List<Asset> harvestAssets {get; set;} = new List<Asset>();
+    private bool isHarvestTime {get; set;} = false; //change to false
+    private int harvestAssetsId {get; set;}
     private string title = "Yeni Arsa Ekle";
+    public DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+
+
+    private List<Slide> Slides = new List<Slide>
+    {
+        new Slide { Number = 1, ImageSrc = "arsa-photo.jpg", Caption = "Caption Text" },
+        new Slide { Number = 2, ImageSrc = "arsa-photo.jpg", Caption = "Caption Two" },
+        new Slide { Number = 3, ImageSrc = "arsa-photo.jpg", Caption = "Caption Three" }
+    };
+    
+    private void PlusSlides(int slideAmount)
+    {
+        CurrentSlide += slideAmount;
+        // Add logic to update the slideshow state here
+    }
+
+    EventCallback PlusSlidesCallback(int increment)
+    {
+        return EventCallback.Factory.Create(this, () => PlusSlides(increment));
+    }
+
+    public class Slide
+    {
+        public int Number { get; set; }
+        public string ImageSrc { get; set; }
+        public string Caption { get; set; }
+    }
     protected override async Task OnInitializedAsync()
     {
-        assets = await assetsClient.GetAssetsAsync();
+        
+          assets = await assetsClient.GetAssetsAsync();
+
+        if (!assets.Any())
+        {
+          NavigationManager.NavigateTo("/", true);
+        }
         foreach (Asset asset in assets)
         {
-            if (asset.PlantDate.HasValue && asset.PlantDate.Value >= DateOnly.FromDateTime(DateTime.Today))
+            if (asset.PlantDate.HasValue && asset.PlantDate.Value >= today)
             {
                 isHarvestTime = true;
-                harvestAssets.Add(asset);
+                harvestAssetsId = asset.AssetId;
+                break;
             }
         }
     }

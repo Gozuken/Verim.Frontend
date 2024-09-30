@@ -1,0 +1,212 @@
+@page "/survey/{assetId:int}"
+@using Verim.Frontend.Clients
+@using Verim.Frontend.Models
+@using Blazorise
+@inject SurveyClient SurveyClient
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+
+<center>
+    <h2>Hasat Durum Raporu</h2>
+    <hr>
+
+    
+</center>
+
+
+<div class="mx-0 mx-sm-auto my-4">
+  <div class="card">
+    <div class="card-body">
+      @if (amountStarError)
+      {
+        <center>errormessage</center>
+      }
+      <div class="text-center">
+        <i class="far bi bi-bar-chart-fill fa-4x mb-3 text-primary"></i>
+        <p>
+          <strong>Ürün miktarı</strong>
+        </p>
+        <p>
+          Hasattan elde edilen ürün miktarı hakkındaki görüşleriniz nedir?
+        </p>
+      </div>
+
+      <hr />
+
+      <form class="px-4" action="">
+        <p class="text-center"><strong>Puanınız:</strong></p>
+            <center>
+                <Rating Color="Color.Primary" @bind-SelectedValue="@Survey.AmountStar" MaxValue="5" GetTooltip="@GetAmountTooltip" Style="font-size: 2rem;" />
+            </center>
+      </form>
+    </div>
+  </div>
+</div>
+
+<EditForm Model="@this" OnValidSubmit="@HandleSubmit">
+  <DataAnnotationsValidator />
+  <Blazorise.ValidationSummary />
+      <div class="mx-0 mx-sm-auto my-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <i class="far bi bi-arrow-counterclockwise fa-4x mb-3 text-primary"></i>
+              <p>
+                <strong>Gelecek Ekimler</strong>
+              </p>
+              <p>
+                Aynı ürünü tekrardan ekmeyi ne seviyede düşünürsünüz?
+              </p>
+            </div>
+
+            <hr />
+
+            <form class="px-4" action="">
+              <p class="text-center"><strong>Puanınız:</strong></p>
+                  <center>
+                      <Rating Color="Color.Primary" @bind-SelectedValue="@Survey.FutureStar" MaxValue="5" GetTooltip="@GetAmountTooltip" Style="font-size: 2rem;" />
+                  </center>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="mx-0 mx-sm-auto my-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <i class="far bi bi-feather2 fa-4x mb-3 text-primary"></i>
+              <p>
+                <strong>Gübre kullanımı</strong>
+              </p>
+              <p>
+                Ektiğiniz ürüne özel gübre kullandınız mı?
+              </p>
+            </div>
+
+            <hr />
+
+            <form class="px-4" action="">
+              <p class="text-center"><strong>Cevabınız:</strong></p>
+                  <center>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" class="btn btn-success" @onclick="() => SetConfirmation(true)">Evet</button>
+                          <button type="button" class="btn btn-danger" @onclick="() => SetConfirmation(false)">Hayır</button>
+                      </div>
+                  </center>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="mx-0 mx-sm-auto my-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <i class="far bi bi bi-chat-dots fa-4x mb-3 text-primary"></i>
+              <p>
+                <strong>Düşünceleriniz</strong>
+              </p>
+              <p>
+                Yorumlarınız ve görüşleriniz var ise belirtiniz.
+              </p>
+            </div>
+
+            <hr />
+
+            <form class="px-4" action="">
+              <p class="text-center"><strong>Hasat hakkındaki görüşleriniz:</strong></p>
+                  <center>
+                      <InputText id="parcelnumber" @bind-Value="Survey.Comment" class="form-control" placeholder="Görüşleriniz..." />
+                      <ValidationMessage For="() => Survey.Comment"/>
+                  </center>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <button type="submit" class="btn btn-success"  @onclick="HandleSubmit">Gönder</button>
+</EditForm>
+<div>
+    @Survey.AmountStar
+    @Survey.FutureStar
+    @Survey.FertilizerUse
+    @Survey.Comment
+</div>
+<br><br>
+
+@code {
+    [Parameter]public int assetId {get; set;}
+    private SurveyResult Survey {get; set;} = new SurveyResult();
+    private bool amountStarError = false; 
+    private bool FutureStarError = false; 
+    private bool FertilizerUseError = false; 
+  
+    private void SetConfirmation(bool value)
+    {
+        Survey.FertilizerUse = value;
+    }
+
+    private async void HandleSubmit()
+    {
+        amountStarError = false; 
+        FutureStarError = false; 
+        FertilizerUseError = false; 
+
+        if (Survey.AmountStar == null) 
+        {
+            amountStarError = true;
+        }
+        
+        if (Survey.FutureStar == null) 
+        {
+            FutureStarError = true;
+        }
+        
+        if (Survey.FertilizerUse == null) 
+        {
+            FertilizerUseError = true;
+        }
+
+        if (!amountStarError && !FutureStarError && !FertilizerUseError)
+        {
+          Survey.AssetId = assetId;
+          SurveyClient.AddSurveyResult(Survey);
+          NavigationManager.NavigateTo("/home");
+        }
+    }
+
+    RatingTooltip GetTooltip( int value )
+    {
+        if ( value == 1 )
+            return new RatingTooltip( "Çok kötü" );
+        else if ( value == 2 )
+            return new RatingTooltip( "Kötü", TooltipPlacement.Bottom );
+        else if ( value == 3 )
+            return new RatingTooltip( "Normal" );
+        else if ( value == 4 )
+            return new RatingTooltip( "İyi" );
+        else if ( value == 5 )
+            return new RatingTooltip( "Çok iyi" );
+        return null;
+    }
+
+    RatingTooltip GetAmountTooltip( int value )
+    {
+        if ( value == 1 )
+            return new RatingTooltip( "Çok az" );
+        else if ( value == 2 )
+            return new RatingTooltip( "Az", TooltipPlacement.Bottom );
+        else if ( value == 3 )
+            return new RatingTooltip( "Normal" );
+        else if ( value == 4 )
+            return new RatingTooltip( "Yüksek" );
+        else if ( value == 5 )
+            return new RatingTooltip( "Çok Yüksek" );
+        return null;
+    }
+}

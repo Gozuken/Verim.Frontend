@@ -33,12 +33,20 @@
       "PackagePath": "staticwebassets\\default-photo.png"
     },
     {
-      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\favicon.jpg",
-      "PackagePath": "staticwebassets\\favicon.jpg"
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\farm-photo.jpg",
+      "PackagePath": "staticwebassets\\farm-photo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\haber-photo-1.jpg",
       "PackagePath": "staticwebassets\\haber-photo-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\koklu_gecmis.jpg",
+      "PackagePath": "staticwebassets\\koklu_gecmis.jpg"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\map.js",
@@ -51,6 +59,18 @@
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\oldfavicon.png",
       "PackagePath": "staticwebassets\\oldfavicon.png"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\slide2.jpg",
+      "PackagePath": "staticwebassets\\slide2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\slide3.jpg",
+      "PackagePath": "staticwebassets\\slide3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\tarim-kredi.png",
+      "PackagePath": "staticwebassets\\tarim-kredi.png"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Masaüstü\\frontend\\Verim.Frontend\\wwwroot\\tarla-photo.jpg",

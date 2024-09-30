@@ -46,6 +46,22 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Blazor-ApexCharts": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
+            "Blazor.WeatherWidget": {
+              "target": "Package",
+              "version": "[1.0.6, )"
+            },
+            "Blazorise.Bootstrap5": {
+              "target": "Package",
+              "version": "[1.6.1, )"
+            },
+            "Blazorise.Icons.FontAwesome": {
+              "target": "Package",
+              "version": "[1.6.1, )"
+            },
             "LeafletForBlazor": {
               "target": "Package",
               "version": "[2.0.4.6, )"
@@ -55,6 +71,10 @@
               "version": "[1.5.0, )"
             },
             "Microsoft.AspNetCore.Components.Web": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[8.0.8, )"
             },

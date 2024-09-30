@@ -1,35 +1,162 @@
 ﻿@page "/assets/{id:int}"
 @using Verim.Frontend.Clients
 @using Verim.Frontend.Models
+@using ApexCharts
 @inject AssetsClient assetsClient
+@inject WeatherClient weathersClient
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <h3>InspectAsset</h3>
+<style>
+  .map-container {
+    text-align: right; /* Aligns iframe to the right */
+    margin-top: 20px;  /* Optional: Adds some space above */
+  }
+
+  .map-container iframe {
+    display: inline-block; /* Ensures the iframe behaves like an inline element */
+  }
+</style>
 
 <!-- Map view of the asset -->
-<iframe
-    width="600"
-    height="450"
-    style="border:0"
-    loading="lazy"
-    allowfullscreen
-    referrerpolicy="no-referrer-when-downgrade"
-    src="@GetMapUrl(@asset)">
-</iframe>
+<div class="map-container" style="margin-top: 20px; display: flex; justify-content: center;">
+    <iframe
+        width="1000"
+        height="350"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="@GetMapUrl(@asset)">
+    </iframe>
+</div>
+
+@if (sunWeatherData == null || rainWeatherData == null)
+{
+    <p>Loading charts...</p>
+}
+else
+{
+<div style="display: flex; justify-content: space-between; align-items: center; margin: 20px;">
+    <div style="flex: 1; margin-right: 10px;">
+        <ApexChart TItem="WeatherData" Title="Güneş Miktarı" Width="450" Height="350">
+            <ApexPointSeries TItem="WeatherData"
+                             Items="sunWeatherData"
+                             SeriesType="@SeriesType.Area"
+                             Name="Güneş"
+                             XValue="@(e => e.Day)"
+                             YValue="@(e => (decimal)e.Amount)" />
+        </ApexChart>
+    </div>
+    <div style="flex: 1; margin-left: 10px;">
+        <ApexChart TItem="WeatherData"
+                   Title="Yağmur Miktarı"
+                   XAxisType=XAxisType.Numeric
+                   Options=options
+                   Width="450" Height="350">
+            <ApexPointSeries TItem="WeatherData" 
+                             Items="rainWeatherData"
+                             Name="Yağmur(ml)"
+                             SeriesType="SeriesType.Bar"
+                             XValue="@(e => e.Day)"
+                             YAggregate="@(e => e.Sum(e => (decimal)e.Amount))" />
+        </ApexChart>
+    </div>
+</div>
+}
+
+@if (@asset.PlantDate is not null)
+{
+<center>
+    <h3>Ekili Ürün: @asset.PlantedProduct</h3>
+</center>
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>Ekim Tarihi</th>
+                <th>Hasat Tarihi</th>
+                <th>Beklenen başarı oranı</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>@asset.PlantDate</td>
+                    <td>@(asset.PlantDate?.AddYears(1))</td>
+                    <td>-</td>
+                </tr>
+        </tbody>
+    </table>
+}else
+{
+    <center>
+        <h3>Bir sonraki ekim için öneriler</h3>
+        <h3>En iyi 3 ürün: </h3>
+    </center>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Başarı puanı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(ProductRate productRate in productRates)
+            {
+                <tr>
+                    <td>@productRate.Product</td>
+                    <td>@productRate.SuccessPercentage</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+<br><br><br>
 
 @code {
-    [Parameter]public int id {get; set;}
-    private Asset asset {get; set;} = new Asset();
 
+    [Parameter]public int id {get; set;}
+    public double Lat {get; set;}
+    public double Long {get; set;}
+    private ApexChartOptions<WeatherData> options { get; set; }
+    private List<WeatherData> rainWeatherData {get; set;}
+    private List<WeatherData> sunWeatherData {get; set;}
+    private Asset asset {get; set;} = new Asset();
+    private List<ProductRate> productRates {get; set;} = new List<ProductRate>();
     protected override async Task OnInitializedAsync()
     {
-        asset = await assetsClient.GetAssetAsync(id);
+        try
+        {
+          asset = await assetsClient.GetAssetAsync(id);
+          (Lat, Long) = await weathersClient.GetCoordinateAsync(asset);
+        }
+        catch(HttpRequestException)
+        {
+          NavigationManager.NavigateTo("/", true);
+        }
+
+        options = new ApexChartOptions<WeatherData>
+            {
+                Xaxis = new XAxis { DecimalsInFloat = 1 }
+            };
+
+        rainWeatherData = await weathersClient.GetDataFromMeteoAsync(asset); 
+        sunWeatherData = await weathersClient.GetDataFromMeteoAsync(asset); 
+        productRates = await assetsClient.GetProductRateAsync(asset);
     }
 
     private string GetMapUrl(Asset asset)
     {
         string Address = asset.GetFullAdress();
-        string apiKey = "YOUR_API_KEY";
+        string apiKey = "AIzaSyApekf_lfBpdxJsc_k3yBQDlvgc3_Jw9Ws";
         var encodedAddress = Uri.EscapeDataString(Address);
-        return $"https://www.google.com/maps/embed/v1/place?key={apiKey}&q={encodedAddress}";
+        return $"https://www.google.com/maps/embed/v1/place?key={apiKey}&q={encodedAddress}&maptype=satellite";
     }
+
+    
 }

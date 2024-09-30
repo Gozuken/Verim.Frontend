@@ -1,11 +1,10 @@
 ﻿@page "/weather"
 @attribute [StreamRendering]
-
+@using Blazor.WeatherWidget
 <PageTitle>Weather</PageTitle>
 
 <h1>Weather</h1>
 
-<p>This component demonstrates showing data.</p>
 
 @if (forecasts == null)
 {
@@ -13,27 +12,22 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+        <div class="row">
             @foreach (var forecast in forecasts)
             {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
+                <div class="col-md-4"> <!-- Adjust for three columns -->
+                    <div class="card mb-3"> <!-- Card for each forecast -->
+                        <div class="card-body">
+                            <h5 class="card-title">@forecast.Date.ToShortDateString()</h5>
+                            <p class="card-text">Temp. (C): @forecast.TemperatureC °C</p>
+                            <p class="card-text">Summary: @forecast.Summary</p>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+        </div>
+    </div>
 }
 
 @code {

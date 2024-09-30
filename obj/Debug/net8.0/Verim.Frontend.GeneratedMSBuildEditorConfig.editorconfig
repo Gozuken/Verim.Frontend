@@ -22,10 +22,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Assets.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBc3NldHMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,10 +38,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/HasatUyarısı.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIYXNhdFV5YXLEsXPEsS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,10 +50,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2dpblBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Map.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNYXAucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/MapComponent.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNYXBDb21wb25lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,12 +58,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPbGRBc3NldHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Recommendation.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZWNvbW1lbmRhdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/RegisterPage.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZWdpc3RlclBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/TempChartComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUZW1wQ2hhcnRDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Testpage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUZXN0cGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Weathertest.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVydGVzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Routes.razor]
@@ -85,6 +89,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Layout/HomeLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcSG9tZUxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-y32l49ylna
 
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Layout/LoginPageLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTG9naW5QYWdlTGF5b3V0LnJhem9y
@@ -97,3 +105,7 @@ build_metadata.AdditionalFiles.CssScope = b-g6umgxnf6j
 [C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-normt7mcyd
+
+[C:/Users/ahmet/OneDrive/Masaüstü/frontend/Verim.Frontend/Components/Pages/Assets.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBc3NldHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-wd1u2rfqo3

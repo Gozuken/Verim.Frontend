@@ -1,11 +1,10 @@
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Verim.Frontend.Models;
-
 namespace Verim.Frontend.Clients;
 
 public class AssetsClient(HttpClient httpClient)
 {
-
     //Creates a new asset and adds it to the list
     public async Task AddNewAssetAsync(Asset asset, ComboData combo)
     {
@@ -127,7 +126,6 @@ public class AssetsClient(HttpClient httpClient)
     }
 
 
-
     public Asset AssetIntToStr(Asset asset, ComboData combo)
     {
         asset.AssetType = combo.Types.FirstOrDefault(t => t.Id == int.Parse(asset.AssetType))?.Name ?? "Unknown Type";
@@ -141,5 +139,19 @@ public class AssetsClient(HttpClient httpClient)
             asset.PlantedProduct = combo.Planteds.FirstOrDefault(p => p.Id == int.Parse(asset.PlantedProduct))?.Name ?? "Unknown Product";
         }
         return asset;
+    }
+
+    public async Task<List<ProductRate>> GetProductRateAsync(Asset asset)
+    {
+        try
+        {
+            var link = $"http://localhost:5197/main/assets/top_products/{asset.AssetId}";
+            return await httpClient.GetFromJsonAsync<List<ProductRate>>(link)
+                    ?? throw new InvalidOperationException("The data returned from GetProductRateAsync is null.");
+        }
+        catch(Exception ex)
+        {
+            return new List<ProductRate>();
+        }  
     }
 }

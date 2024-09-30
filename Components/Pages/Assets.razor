@@ -2,22 +2,42 @@
 @using Verim.Frontend.Clients;
 @using Verim.Frontend.Models;
 @inject AssetsClient Client
-
+@inject NavigationManager NavigationManager
 
 <div class="mt-2">
     <a class = "btn btn-success" role="button" href="/editAssets">Yeni Arsa Ekle</a>
 </div>
 
 
+<style>
+  .card {
+    position: relative;
+  }
+
+  .stretched-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1; /* Below the buttons */
+  }
+
+  .card-body .btn {
+    position: relative;
+    z-index: 2; /* Above the stretched-link */
+  }
+</style>
+
 <div class="row">
   @foreach (var asset in assets)
   {
-    <div class="col-sm-4 mt-4 card-pos ">
+    <div class="col-sm-4 mt-4 card-pos">
       <div class="card" style="width: 18rem;">
         <img class="card-img-top" src="@GetImageName(asset)" alt="">
-        <div class="card-body ">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">buiald on the card title and make up the bulk of the card's content.</p>
+        <div class="card-body">
+          <h5 class="card-title">@GetAssetTitle(asset)</h5>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Arsa Tipi : @asset.AssetType</li>
@@ -25,30 +45,33 @@
           <li class="list-group-item">Ürün : @asset.PlantedProduct</li>
           <li class="list-group-item">Ekilme Tarihi : @asset.PlantDate</li>
         </ul>
+        <a href="/assets/@asset.AssetId" class="stretched-link"></a> <!-- Pseudo-element will cover the card -->
         <div class="card-body">
           <div class="d-flex">
-              <a class="btn btn-success me-2 stretched-link" role="button" href="/editAssets/@asset.AssetId">
-                  <i class="bi bi-pencil"></i>
-              </a>
-              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@GetDeleteModalId(asset)">
-                  <i class="bi bi-trash"></i>
-              </button>
-              <DeleteAsset Asset="@asset" />
+            <a class="btn btn-success me-2" role="button" href="/editAssets/@asset.AssetId">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@GetDeleteModalId(asset)">
+                <i class="bi bi-trash"></i>
+            </button>
+            <DeleteAsset Asset="@asset" />
           </div>
-          
         </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-success">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-      </div>
       </div>
     </div>
   }
 </div>
 
+
 @code {
     private List<Asset> assets { get; set; } = new List<Asset>();
     private string? product {get; set;}
+    private string title {get; set;} = "Yeni arsa.";
+
+    private string GetAssetTitle(Asset asset)
+    {
+      return $"{asset.AssetId} Numaralı {asset.AssetType}";
+    }
 
     private string GetImageName(Asset asset)
     {
@@ -70,6 +93,10 @@
     protected override async Task OnInitializedAsync()
     {
       assets = await Client.GetAssetsAsync();
+      if (!assets.Any())
+      {
+        NavigationManager.NavigateTo("/", true);
+      }
     }
 
     public static string GetDeleteModalId(Asset asset)

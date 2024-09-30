@@ -1,0 +1,57 @@
+﻿@using Verim.Frontend.Clients
+@using Verim.Frontend.Models
+@using ApexCharts
+@inject AssetsClient assetsClient
+@inject WeatherClient weathersClient
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<h3>InspectAsset</h3>
+
+<DemoContainer>
+    <ApexChart TItem="WeatherData"
+        Title="Sıcaklık"
+        Options="tempOptions"
+        Width="450" Height="350">
+
+        <ApexRangeAreaSeries TItem="WeatherData"
+                             Items="temperatures"
+                             Name="Temperatures"
+                             XValue="@(e => e.Day)"
+                             Top="@(e => (decimal)e.Amount)"
+                             Bottom="@(e => (decimal)e.SecondAmount)"
+                             />
+    </ApexChart>
+</DemoContainer>
+
+
+
+
+@code {
+    [Parameter]public Asset? asset {get; set;}
+    private List<WeatherData> temperatures { get; set; }
+    private ApexChartOptions<WeatherData> tempOptions { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        tempOptions = new ApexChartOptions<WeatherData>();
+        tempOptions.Yaxis = new List<YAxis>();
+        tempOptions.Yaxis.Add(new YAxis
+        {
+            Labels = new YAxisLabels
+            {
+                Formatter = @"function(val) 
+                            {
+                            return val + '°C'
+                            }"
+            }
+        });
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (asset is not null)
+        {
+            temperatures = await weathersClient.GetTempDataFromMeteo(asset);
+        }
+    }
+}

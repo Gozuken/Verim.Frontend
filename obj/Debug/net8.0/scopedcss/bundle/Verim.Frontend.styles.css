@@ -1,6 +1,14 @@
+@import '_content/Blazor.WeatherWidget/Blazor.WeatherWidget.bundle.scp.css';
 @import '_content/LeafletForBlazor/LeafletForBlazor.bundle.scp.css';
 @import '_content/Majorsoft.Blazor.Components.Common.JsInterop/Majorsoft.Blazor.Components.Common.JsInterop.bundle.scp.css';
 
+/* _content/Verim.Frontend/Components/Layout/HomeLayout.razor.rz.scp.css */
+#carouselExample[b-y32l49ylna] {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
 /* _content/Verim.Frontend/Components/Layout/LoginPageLayout.razor.rz.scp.css */
 body[b-xtmgqqvg8d] {
     background-color: #f7f7f7;
@@ -282,3 +290,23 @@ main[b-g6umgxnf6j] {
         overflow-y: auto;
     }
 }
+/* _content/Verim.Frontend/Components/Pages/Assets.razor.rz.scp.css */
+
+  .card[b-wd1u2rfqo3] {
+    position: relative;
+  }
+
+  .stretched-link[b-wd1u2rfqo3]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1; /* Below the buttons */
+  }
+
+  .card-body .btn[b-wd1u2rfqo3] {
+    position: relative;
+    z-index: 2; /* Above the stretched-link */
+  }

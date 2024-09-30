@@ -1,0 +1,19 @@
+
+  .card[b-wd1u2rfqo3] {
+    position: relative;
+  }
+
+  .stretched-link[b-wd1u2rfqo3]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1; /* Below the buttons */
+  }
+
+  .card-body .btn[b-wd1u2rfqo3] {
+    position: relative;
+    z-index: 2; /* Above the stretched-link */
+  }

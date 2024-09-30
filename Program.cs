@@ -1,6 +1,11 @@
 using Verim.Frontend.Clients;
 using Verim.Frontend.Components;
 
+using Blazorise;
+using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 var VerimApiUrl = builder.Configuration["VerimApiUrl"] ?? 
@@ -16,6 +21,17 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<AssetsClient>();
 builder.Services.AddSingleton<CredentialsClient>();
+builder.Services.AddSingleton<WeatherClient>();
+builder.Services.AddSingleton<SurveyClient>();
+
+
+builder.Services
+    .AddBlazorise( options =>
+    {
+        options.Immediate = true;
+    } )
+    .AddBootstrap5Providers()
+    .AddFontAwesomeIcons();
 
 var app = builder.Build();
 

@@ -24,8 +24,14 @@
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)radzen.blazor\5.1.8\buildTransitive\Radzen.Blazor.props" Condition="Exists('$(NuGetPackageRoot)radzen.blazor\5.1.8\buildTransitive\Radzen.Blazor.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.8\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.8\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
     <Import Project="$(NuGetPackageRoot)majorsoft.blazor.components.common.jsinterop\1.5.0\buildTransitive\Majorsoft.Blazor.Components.Common.JsInterop.props" Condition="Exists('$(NuGetPackageRoot)majorsoft.blazor.components.common.jsinterop\1.5.0\buildTransitive\Majorsoft.Blazor.Components.Common.JsInterop.props')" />
     <Import Project="$(NuGetPackageRoot)majorsoft.blazor.components.maps\1.5.0\buildTransitive\Majorsoft.Blazor.Components.Maps.props" Condition="Exists('$(NuGetPackageRoot)majorsoft.blazor.components.maps\1.5.0\buildTransitive\Majorsoft.Blazor.Components.Maps.props')" />
     <Import Project="$(NuGetPackageRoot)leafletforblazor\2.0.4.6\buildTransitive\LeafletForBlazor.props" Condition="Exists('$(NuGetPackageRoot)leafletforblazor\2.0.4.6\buildTransitive\LeafletForBlazor.props')" />
+    <Import Project="$(NuGetPackageRoot)blazorise\1.6.1\buildTransitive\Blazorise.props" Condition="Exists('$(NuGetPackageRoot)blazorise\1.6.1\buildTransitive\Blazorise.props')" />
+    <Import Project="$(NuGetPackageRoot)blazorise.icons.fontawesome\1.6.1\buildTransitive\Blazorise.Icons.FontAwesome.props" Condition="Exists('$(NuGetPackageRoot)blazorise.icons.fontawesome\1.6.1\buildTransitive\Blazorise.Icons.FontAwesome.props')" />
+    <Import Project="$(NuGetPackageRoot)blazorise.bootstrap5\1.6.1\buildTransitive\Blazorise.Bootstrap5.props" Condition="Exists('$(NuGetPackageRoot)blazorise.bootstrap5\1.6.1\buildTransitive\Blazorise.Bootstrap5.props')" />
+    <Import Project="$(NuGetPackageRoot)blazor.weatherwidget\1.0.6\buildTransitive\Blazor.WeatherWidget.props" Condition="Exists('$(NuGetPackageRoot)blazor.weatherwidget\1.0.6\buildTransitive\Blazor.WeatherWidget.props')" />
+    <Import Project="$(NuGetPackageRoot)blazor-apexcharts\3.4.0\buildTransitive\Blazor-ApexCharts.props" Condition="Exists('$(NuGetPackageRoot)blazor-apexcharts\3.4.0\buildTransitive\Blazor-ApexCharts.props')" />
   </ImportGroup>
 </Project>
